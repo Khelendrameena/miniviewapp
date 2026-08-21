@@ -291,21 +291,35 @@
                 });
             }
         </script>
-        <script>
-function downloadCertificate() {
+  <script>
+async function downloadCertificate() {
+
     const certificate = document.getElementById("invoice");
+
+    if (!certificate) {
+        alert("Certificate not found");
+        return;
+    }
+
+    // Give browser time to render latest DOM changes
+    await new Promise(resolve => setTimeout(resolve, 500));
 
     const options = {
         margin: 0,
         filename: 'certificate.pdf',
+
         image: {
             type: 'jpeg',
-            quality: 0.98
+            quality: 1
         },
+
         html2canvas: {
-            scale: 2,
-            useCORS: true
+            scale: 3,
+            useCORS: true,
+            allowTaint: false,
+            logging: true
         },
+
         jsPDF: {
             unit: 'mm',
             format: 'a4',
