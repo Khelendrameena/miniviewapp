@@ -142,7 +142,7 @@
                     <p style="color: #0c0b70; font-size: 13px;"><strong>Verified at</strong> <a href="https://ineubytes.online/certificate/6ff6edf97ea0537d8b60f0e367049a7a" style="font-size: 10px;">https://ineubytes.online/certificate/6ff6edf97ea0537d8b60f0e367049a7a</a></p>
                 </div>
                                 <div style="margin-top:20px;width: 100%;display: flex;text-align: center;justify-content: center;">
-                        <a type="button" class="r-g-btn r-g-btn-1 r-g-btn01" href="https://ineubytes.com/certificate-pdf/6ff6edf97ea0537d8b60f0e367049a7a">Download Certification</a>
+                        <a type="button" class="r-g-btn r-g-btn-1 r-g-btn01" onclick="downloadCertificate()">Download Certification</a>
                 </div>
                                                 <div class="certificate-share-box">
                     <h6>Share your certificate</h6>
@@ -291,6 +291,34 @@
                 });
             }
         </script>
+        <script>
+function downloadCertificate() {
+    const certificate = document.getElementById("invoice");
+
+    const options = {
+        margin: 0,
+        filename: 'certificate.pdf',
+        image: {
+            type: 'jpeg',
+            quality: 0.98
+        },
+        html2canvas: {
+            scale: 2,
+            useCORS: true
+        },
+        jsPDF: {
+            unit: 'mm',
+            format: 'a4',
+            orientation: 'landscape'
+        }
+    };
+
+    html2pdf()
+        .set(options)
+        .from(certificate)
+        .save();
+}
+</script>
     </body>
     </html>
 
