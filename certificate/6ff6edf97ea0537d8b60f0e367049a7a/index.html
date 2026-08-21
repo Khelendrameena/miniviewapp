@@ -291,46 +291,45 @@
                 });
             }
         </script>
-  <script>
-async function downloadCertificate() {
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
+<script>
+async function downloadCertificate() {
     const certificate = document.getElementById("invoice");
 
+    console.log("Certificate:", certificate);
+
     if (!certificate) {
-        alert("Certificate not found");
+        console.error("Certificate element not found");
         return;
     }
 
-    // Give browser time to render latest DOM changes
-    await new Promise(resolve => setTimeout(resolve, 500));
-
     const options = {
         margin: 0,
-        filename: 'certificate.pdf',
-
+        filename: "certificate.pdf",
         image: {
-            type: 'jpeg',
-            quality: 1
+            type: "jpeg",
+            quality: 0.98
         },
-
         html2canvas: {
-            scale: 3,
-            useCORS: true,
-            allowTaint: false,
-            logging: true
+            scale: 2,
+            useCORS: true
         },
-
         jsPDF: {
-            unit: 'mm',
-            format: 'a4',
-            orientation: 'landscape'
+            unit: "mm",
+            format: "a4",
+            orientation: "landscape"
         }
     };
 
-    html2pdf()
-        .set(options)
-        .from(certificate)
-        .save();
+    try {
+        await html2pdf()
+            .set(options)
+            .from(certificate)
+            .save();
+    } catch (error) {
+        console.error("PDF ERROR:", error);
+    }
 }
 </script>
     </body>
